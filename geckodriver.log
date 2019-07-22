@@ -1,0 +1,48 @@
+1563813716426	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.tK2h6whZGsvz"
+1563813718353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1563813718353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1563813718353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1563813718353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1563813724600	Marionette	INFO	Listening on port 36429
+1563813724660	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(firefox:4291): GLib-GObject-WARNING **: 13:42:07.064: ../../../../gobject/gsignal.c:3492: signal name 'selection_changed' is invalid for instance '0x7fafb54bcb00' of type 'MaiAtkType139'
+
+(firefox:4291): GLib-GObject-WARNING **: 13:42:13.327: ../../../../gobject/gsignal.c:3492: signal name 'selection_changed' is invalid for instance '0x7fafb54bcb00' of type 'MaiAtkType139'
+
+(firefox:4291): GLib-GObject-WARNING **: 13:42:29.482: ../../../../gobject/gsignal.c:3492: signal name 'selection_changed' is invalid for instance '0x7fafb54bcb00' of type 'MaiAtkType139'
+console.warn: "Error while detaching the thread front: 'detach' request packet to 'server1.conn0.child1/context18' can't be sent as the connection is closed."
+1563814648742	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:223:64
+1563814649889	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:223:64
+1563814651227	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:223:64
+1563814658752	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:223:64
+1563814660328	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:223:64
+console.error: "TypeError: store is null: dispatchSplitConsoleCloseButtonToggle@resource://devtools/client/webconsole/webconsole-wrapper.js:530:5\n_onChangeSplitConsoleState@resource://devtools/client/webconsole/webconsole-ui.js:349:18\nemit@resource://devtools/shared/event-emitter.js:186:24\nemit@resource://devtools/shared/event-emitter.js:267:18\ncloseSplitConsole@resource://devtools/client/framework/toolbox.js:2426:10\ntoggleSplitConsole@resource://devtools/client/framework/toolbox.js:2444:19\n_splitConsoleOnKeypress@resource://devtools/client/framework/toolbox.js:1191:12\n"
+TypeError: store is null: dispatchSplitConsoleCloseButtonToggle@resource://devtools/client/webconsole/webconsole-wrapper.js:530:5
+_onChangeSplitConsoleState@resource://devtools/client/webconsole/webconsole-ui.js:349:18
+emit@resource://devtools/shared/event-emitter.js:186:24
+emit@resource://devtools/shared/event-emitter.js:267:18
+closeSplitConsole@resource://devtools/client/framework/toolbox.js:2426:10
+toggleSplitConsole@resource://devtools/client/framework/toolbox.js:2444:19
+_splitConsoleOnKeypress@resource://devtools/client/framework/toolbox.js:1191:12
+
+
+(firefox:4291): GLib-GObject-WARNING **: 13:58:11.455: ../../../../gobject/gsignal.c:3492: signal name 'load_complete' is invalid for instance '0x7fafbfffbc90' of type 'MaiAtkType139'
+console.warn: "Error while detaching the thread front: 'detach' request packet to 'server1.conn1.child1/context18' can't be sent as the connection is closed."
+[Parent 4291, Gecko_IOThread] WARNING: pipe error (79): Connection reset by peer: file /build/firefox-oTXxYK/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 4291, Gecko_IOThread] WARNING: pipe error (85): Connection reset by peer: file /build/firefox-oTXxYK/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1563814940727	Marionette	INFO	Stopped listening on port 36429
+1563814999293	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qWtNJZYqCvmf"
+1563814999978	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1563814999978	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1563814999978	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1563814999978	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1563815006895	Marionette	INFO	Listening on port 36157
+1563815006920	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(firefox:5294): GLib-GObject-WARNING **: 14:03:28.480: ../../../../gobject/gsignal.c:3492: signal name 'selection_changed' is invalid for instance '0x7fc1546fd510' of type 'MaiAtkType139'
