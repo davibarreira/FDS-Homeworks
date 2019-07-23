@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 import time
+import requests
 
 
 def scrape(author_name):
@@ -60,4 +61,25 @@ def scrape(author_name):
         
     # Fechar browser
     driver.quit()
+    return papers
+
+def scrape_bypass(url_author):
+    # Já passa direto a url do autor
+    url = url_author
+    r = requests.get(url) 
+    print(r)
+    soup = BeautifulSoup(r.text, features='lxml')
+    # Criar lista com papers contendo artigos e autores
+    table = soup.find('table',attrs={"id":'gsc_a_t'})
+    papers = []
+    for article in table.find_all('td',attrs={"class":'gsc_a_t'}):
+        autores = article.find('div',attrs={'class':'gs_gray'}).contents[0].split(',')
+        
+        # retira o espaço branco no início e final dos nomes, e remove o '...'
+        autores = [autor.strip() for autor in autores]
+        if autores[-1]=='...': autores.pop()
+        
+        title   = article.find('a').contents[0]
+        papers.append({'title':title,'authors':autores})
+
     return papers
