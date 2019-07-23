@@ -77,7 +77,8 @@ def scrape_bypass(url_author):
     driver = webdriver.Firefox(options=options)
     driver.get(url)
 
-    btn_More = driver.find_element_by_id('gsc_bpf_more')
+    btn_More   = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "gsc_bpf_more")))
     for i in range(100):
         time.sleep(0.1)
         if btn_More.get_attribute('disabled')=='true':
