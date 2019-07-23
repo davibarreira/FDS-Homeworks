@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 import requests
@@ -34,7 +37,9 @@ def scrape(author_name):
     driver.get(autor_url)
 
     # Clicar no botão de "More" para exibir a página completa
-    btn_More = driver.find_element_by_id('gsc_bpf_more')
+    # btn_More = driver.find_element_by_id('gsc_bpf_more')
+    btn_More   = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "gsc_bpf_more")))
     for i in range(100):
         time.sleep(0.1)
         if btn_More.get_attribute('disabled')=='true':
@@ -66,9 +71,24 @@ def scrape(author_name):
 def scrape_bypass(url_author):
     # Já passa direto a url do autor
     url = url_author
-    r = requests.get(url) 
-    print(r)
-    soup = BeautifulSoup(r.text, features='lxml')
+
+    options = Options()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
+    driver.get(url)
+
+    btn_More = driver.find_element_by_id('gsc_bpf_more')
+    for i in range(100):
+        time.sleep(0.1)
+        if btn_More.get_attribute('disabled')=='true':
+            break
+        else:
+            driver.find_element_by_id('gsc_bpf_more').click()
+            
+    # Coletar html da página
+    soup = BeautifulSoup(driver.page_source,features='lxml')
+
+    
     # Criar lista com papers contendo artigos e autores
     table = soup.find('table',attrs={"id":'gsc_a_t'})
     papers = []
