@@ -1,5 +1,9 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect,url_for,jsonify
 from forms import AuthorForm
+import altair as alt
+from vega_datasets import data
+
+cars = data.cars()
 
 
 app = Flask(__name__)
@@ -11,6 +15,19 @@ def index():
     return render_template('home.html')
     # return '<h1>Hello</h1>'
 
+@app.route('/scrape/<author>')
+def scrape(author=None):
+    return render_template('home.html',author=author)
+
+@app.route('/vega-example')
+def vega():
+    chart = alt.Chart(cars).mark_point().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+)
+    chart.save('./templates/vega.html')
+    return render_template('vega.html')
 
 
 @app.route('/test',methods=['GET','POST'])
