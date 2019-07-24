@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>TESTANDO</h1>
+    <div class="conten-section">
+        <form method="POST" action=""> 
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="borger-bottom mb-4">Scrape</legend>
+                <div class="form-group">
+                   {{ form.authorname.label(class="form-control-label") }}
+                   {{ form.authorname(class="form-control form-control-lg") }} 
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+
+        </form>
+        
+
+    </div>
+
+{% endblock content %}
