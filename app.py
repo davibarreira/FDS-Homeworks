@@ -2,8 +2,8 @@ from flask import Flask, render_template, redirect,url_for,jsonify
 from forms import AuthorForm
 import altair as alt
 from vega_datasets import data
+from altair import Chart, X, Y, Axis, Data, DataFormat
 
-cars = data.cars()
 
 
 app = Flask(__name__)
@@ -21,11 +21,20 @@ def scrape(author=None):
 
 @app.route('/vega-example')
 def vega():
-    chart = alt.Chart(cars).mark_point().encode(
-    x='Horsepower',
-    y='Miles_per_Gallon',
-    color='Origin',
-)
+    source = data.cars()
+    brush = alt.selection(type='interval')
+
+    chart = alt.Chart(source).mark_point().encode(
+        x='Horsepower:Q',
+        y='Miles_per_Gallon:Q',
+        color=alt.condition(brush, 'Cylinders:O', alt.value('grey')),
+    ).add_selection(brush)
+    graph = jsonify(chart.to_dict())
+    # chart.save('chart_example.json')
+
+    # return render_template('vega-example.html')
+    # return graph
+    # return render_template('vega-example.html', graph=graph)
     chart.save('./templates/vega.html')
     return render_template('vega.html')
 
@@ -37,6 +46,26 @@ def test():
     if form.validate_on_submit():
         return redirect(url_for('index'))
     return render_template('test.html',form=form)
+
+
+teste = data.cars()
+WIDTH = 600
+HEIGHT = 300
+
+@app.route("/cars")
+def show_cars():
+    return render_template("cars.html")
+
+@app.route("/data/cars")
+def cars_demo():
+
+    chart = Chart(
+        data=teste, height=700, width=700).mark_point().encode(
+            x='Horsepower',
+            y='Miles_per_Gallon',
+            color='Origin',
+        ).interactive()
+    return chart.to_json()
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000, host='0.0.0.0')

@@ -1,5 +1,14 @@
 <html lang="en">
   <head>
+
+    <!-- Import Vega 5 & Vega-Lite 3 (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@[VERSION]"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@[VERSION]"></script>
+    <!-- Import vega-embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@[VERSION]"></script>
+
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,6 +23,8 @@
     <div class="container">
         {% block content %}{% endblock content %}
     </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
