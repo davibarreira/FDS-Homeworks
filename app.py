@@ -4,10 +4,14 @@ from forms import AuthorForm
 import altair as alt
 from vega_datasets import data
 from altair import Chart, X, Y, Axis, Data, DataFormat
-
+import scrape_scholar as ss
+from database_app import Create_DB, Insert_Data
 
 
 app = Flask(__name__)
+
+# Cria uma db nova sempre que rodar o app
+Create_DB()
 
 app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 
@@ -18,49 +22,26 @@ def index():
 
 @app.route('/scrape', methods=['POST','GET'])
 def scrape_author():
-    searchword = request.args.get('author', '')
-    outro = ""
+
+    # Fazer pesqusia via link scrape?author=<author>
+    searchword = str(request.args.get('author', ''))
     try:
-        outro = request.form['author']
+
+    # Fazer pesquisa atraves da barra de pesquisa
+        searchword = str(request.form['author'])
     except:
         pass
-    print(searchword)
-    return str(searchword)+str(outro)
-    # return redirect(url_for('index'))
 
-
-
-# @app.route('/scrape/<author>')
-# def scrape(author=None):
-#     return render_template('home.html',author=author)
-
-@app.route('/vega-example')
-def vega():
-    source = data.cars()
-    brush = alt.selection(type='interval')
-
-    chart = alt.Chart(source).mark_point().encode(
-        x='Horsepower:Q',
-        y='Miles_per_Gallon:Q',
-        color=alt.condition(brush, 'Cylinders:O', alt.value('grey')),
-    ).add_selection(brush)
-    graph = jsonify(chart.to_dict())
-    # chart.save('chart_example.json')
-
-    # return render_template('vega-example.html')
-    # return graph
-    # return render_template('vega-example.html', graph=graph)
-    chart.save('./templates/vega.html')
-    return render_template('vega.html')
-
-
-@app.route('/test',methods=['GET','POST'])
-def test():
-    form = AuthorForm()
-    print(form.authorname.data)
-    if form.validate_on_submit():
+    # Recebe o resultado da pesquisa
+    papers = ss.scrape(searchword)
+    if papers == 0:
         return redirect(url_for('index'))
-    return render_template('test.html',form=form)
+
+    Insert_Data(papers)
+
+    return redirect(url_for('index'))
+    # return str(papers)
+    # return redirect(url_for('index'))
 
 
 teste = data.cars()
