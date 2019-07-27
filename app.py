@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect,url_for,jsonify
+from flask import (Flask, render_template, redirect,
+    url_for,jsonify, request)
 from forms import AuthorForm
 import altair as alt
 from vega_datasets import data
@@ -12,12 +13,26 @@ app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('home.html',author='Teste')
     # return '<h1>Hello</h1>'
 
-@app.route('/scrape/<author>')
-def scrape(author=None):
-    return render_template('home.html',author=author)
+@app.route('/scrape', methods=['POST','GET'])
+def scrape_author():
+    searchword = request.args.get('author', '')
+    outro = ""
+    try:
+        outro = request.form['author']
+    except:
+        pass
+    print(searchword)
+    return str(searchword)+str(outro)
+    # return redirect(url_for('index'))
+
+
+
+# @app.route('/scrape/<author>')
+# def scrape(author=None):
+#     return render_template('home.html',author=author)
 
 @app.route('/vega-example')
 def vega():
@@ -60,7 +75,7 @@ def show_cars():
 def cars_demo():
 
     chart = Chart(
-        data=teste, height=700, width=700).mark_point().encode(
+        data=teste, height=200, width=300).mark_point().encode(
             x='Horsepower',
             y='Miles_per_Gallon',
             color='Origin',
