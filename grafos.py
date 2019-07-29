@@ -5,7 +5,7 @@ import networkx as nx
 import altair as alt
 
 
-DATABASE = 'hw1_test.sqlite'
+DATABASE = 'hw1.sqlite'
 
 
 def Select_All(db,table,field):
@@ -117,6 +117,8 @@ def Grafos_Edges(G,pos):
 
 
 def Altair_Grafo():
+    alt.data_transformers.disable_max_rows()
+
     authors       = Select_All(DATABASE,table='author',field='author_name')
     papers        = Select_All(DATABASE,table='paper',field='paper_name')
     edges_authors = Generate_Edges_Authors(DATABASE) 
@@ -159,7 +161,7 @@ def Altair_Grafo():
     )
 
     chart_ea = alt.Chart(graf_egdes_authors).mark_line().encode(
-        x = alt.X('x', axis=alt.Axis(title='')),
+        x = alt.X('x', axis=alt.Axis(title='Autores')),
         y = alt.Y('y', axis=alt.Axis(title='')),
         opacity = alt.value(1),
         color   = alt.value('black'),
@@ -167,7 +169,7 @@ def Altair_Grafo():
     ).interactive()
 
     chart_ep = alt.Chart(graf_egdes_papers).mark_line().encode(
-        x = alt.X('x', axis=alt.Axis(title='')),
+        x = alt.X('x', axis=alt.Axis(title='Artigos')),
         y = alt.Y('y', axis=alt.Axis(title='')),
         opacity = alt.value(1),
         color=alt.value('black'),
