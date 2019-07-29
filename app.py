@@ -18,8 +18,7 @@ app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 
 @app.route('/')
 def index():
-    return render_template('home.html',author='Teste')
-    # return '<h1>Hello</h1>'
+    return render_template('home.html')
 
 @app.route('/scrape', methods=['POST','GET'])
 def scrape_author():
@@ -43,17 +42,13 @@ def scrape_author():
         flash('Pesquisador não encontrado')
         return redirect(url_for('index'))
 
+    #Atualizando a base de dados
     Insert_Data(papers)
 
     flash('Pesquisador encontrado. Coleta com sucesso!')
     return redirect(url_for('index'))
-    # return str(papers)
-    # return redirect(url_for('index'))
 
-# @app.route("/grafo")
-# def show_cars():
-#     return render_template("home.html")
-
+#Criar o grafo e guardar informacoes em url data/grafo
 @app.route("/data/grafo")
 def grafo():
     chart = Altair_Grafo()

@@ -5,9 +5,11 @@ import networkx as nx
 import altair as alt
 
 
+# Definir base de dados que sera utilizada
 DATABASE = 'hw1.sqlite'
 
 
+# Funcao para extrair table da base
 def Select_All(db,table,field):
     results = []
     conn = sqlite3.connect(DATABASE,timeout=10)
@@ -16,6 +18,7 @@ def Select_All(db,table,field):
     conn.close()
     return results
     
+# Funcao para gerar dataframe com todos os dados
 def Flat_Dataframe(db):
     DATABASE = db
     query_pair_papers = """
@@ -32,14 +35,15 @@ def Flat_Dataframe(db):
     for row in conn.execute(query_pair_papers):
         df.append(row)
     conn.close()
+
     df = pd.DataFrame(df,columns=['author_id','authors','paper_id','paper_name'])
     df['author_id'] = df['author_id'].apply(lambda x: int(x))
     df['paper_id'] = df['paper_id'].apply(lambda x: int(x))
     return df
 
+# Cria lista de arestas para rede de autores
 def Generate_Edges_Authors(db):
     DATABASE = db
-# Cria lista de arestas para rede de autores
     query_pair_authors = """
     SELECT paper_id,
            a1.author_id AS author1,
@@ -60,9 +64,9 @@ def Generate_Edges_Authors(db):
     return count_authors
 
 
+# Cria lista de arestas para rede de papers
 def Generate_Edges_Papers(db):
     DATABASE = db
-# Cria lista de arestas para rede de papers
     query_pair_papers = """
     SELECT author_id,
            a1.paper_id AS paper1,
@@ -83,7 +87,7 @@ def Generate_Edges_Papers(db):
     
     return count_papers
     
-
+# Cria um grafo utilizando a biblioteca networkx
 def Create_Network(nodes,edges,source='source', target='target',weight='weight'):
     G = nx.Graph()
     
@@ -104,6 +108,8 @@ def Create_Network(nodes,edges,source='source', target='target',weight='weight')
     return (G, pos)
 
 
+# Funcao para gerar dataframe com arestas dos grafos para utilizar
+# no Altair
 def Grafos_Edges(G,pos):
     pairs = []
     for e1, e2 in G.edges:
@@ -116,23 +122,36 @@ def Grafos_Edges(G,pos):
     return pd.merge(pos,pairs,on='id')
 
 
+# Crair Chart no Altair
 def Altair_Grafo():
+
+    # Permitir que o maximo passe de 5mil ponto
     alt.data_transformers.disable_max_rows()
 
+    # Gerando dataframes auxiliares
     authors       = Select_All(DATABASE,table='author',field='author_name')
     papers        = Select_All(DATABASE,table='paper',field='paper_name')
     edges_authors = Generate_Edges_Authors(DATABASE) 
     edges_papers  = Generate_Edges_Papers(DATABASE) 
     df            = Flat_Dataframe(DATABASE)
 
+    # Gerando grafos
     G_authors, pos_authors = Create_Network(authors,edges_authors,'author1','author2','paper')
     G_papers, pos_papers   = Create_Network(papers,edges_papers,'paper1','paper2','author')
 
     graf_egdes_authors = Grafos_Edges(G_authors,pos_authors)
     graf_egdes_papers  = Grafos_Edges(G_papers,pos_papers)
 
+    # Criando dataframe completo: author_id | author_name | paper_id | paper_name | pos_author | pos_paper
     df = pd.merge(df,pos_authors,left_on='author_id',right_on='id',how='left')
     df = pd.merge(df,pos_papers,left_on='paper_id',right_on='id',suffixes=('_a','_p'),how='left')
+
+    # IMPLEMENTACAO DOS CHARTS COM ALTAIR
+    ## Serao criados 5 charts diferentes, 3 para nós e 2 para edges,
+    ## que serão então sobrepostos.
+    ## No grafo dos papers, duas camadas de nós serão geradas,
+    ## Na qual uma delas será filtrada ao selecionar o nó do autor.
+
 
     select = alt.selection_multi(fields=['authors'])
 
