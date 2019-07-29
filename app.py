@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, redirect,
-    url_for,jsonify, request)
+    url_for,jsonify, request, flash)
 from forms import AuthorForm
 import altair as alt
 from vega_datasets import data
@@ -34,28 +34,28 @@ def scrape_author():
         pass
 
     # Recebe o resultado da pesquisa
-    papers = ss.scrape(searchword)
+    try:
+        papers = ss.scrape(searchword)
+    except:
+        flash('Erro na extração. É possível que Google Scholar tenha bloqueado.')
+        return redirect(url_for('index'))
     if papers == 0:
+        flash('Pesquisador não encontrado')
         return redirect(url_for('index'))
 
     Insert_Data(papers)
 
+    flash('Pesquisador encontrado. Coleta com sucesso!')
     return redirect(url_for('index'))
     # return str(papers)
     # return redirect(url_for('index'))
 
+# @app.route("/grafo")
+# def show_cars():
+#     return render_template("home.html")
 
-teste = data.cars()
-WIDTH = 600
-HEIGHT = 300
-
-@app.route("/cars")
-def show_cars():
-    return render_template("cars.html")
-
-@app.route("/data/cars")
-def cars_demo():
-
+@app.route("/data/grafo")
+def grafo():
     chart = Altair_Grafo()
 
     return chart.to_json()
