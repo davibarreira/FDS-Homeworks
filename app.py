@@ -6,6 +6,7 @@ from vega_datasets import data
 from altair import Chart, X, Y, Axis, Data, DataFormat
 import scrape_scholar as ss
 from database_app import Create_DB, Insert_Data
+from grafos import Altair_Grafo
 
 
 app = Flask(__name__)
@@ -55,12 +56,8 @@ def show_cars():
 @app.route("/data/cars")
 def cars_demo():
 
-    chart = Chart(
-        data=teste, height=200, width=300).mark_point().encode(
-            x='Horsepower',
-            y='Miles_per_Gallon',
-            color='Origin',
-        ).interactive()
+    chart = Altair_Grafo()
+
     return chart.to_json()
 
 if __name__ == '__main__':
