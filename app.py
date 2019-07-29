@@ -12,7 +12,7 @@ from grafos import Altair_Grafo
 app = Flask(__name__)
 
 # Cria uma db nova sempre que rodar o app
-# Create_DB()
+Create_DB()
 
 app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 
