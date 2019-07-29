@@ -54,14 +54,17 @@ def scrape(author_name):
     table = soup.find('table',attrs={"id":'gsc_a_t'})
     papers = []
     for article in table.find_all('td',attrs={"class":'gsc_a_t'}):
-        autores = article.find('div',attrs={'class':'gs_gray'}).contents[0].split(',')
-        
-        # retira o espaço branco no início e final dos nomes, e remove o '...'
-        autores = [autor.strip() for autor in autores]
-        if autores[-1]=='...': autores.pop()
-        
-        title   = article.find('a').contents[0]
-        papers.append({'title':title,'authors':autores})
+        try:
+            autores = article.find('div',attrs={'class':'gs_gray'}).contents[0].split(',')
+            
+            # retira o espaço branco no início e final dos nomes, e remove o '...'
+            autores = [autor.strip() for autor in autores]
+            if autores[-1]=='...': autores.pop()
+            
+            title   = article.find('a').contents[0]
+            papers.append({'title':title,'authors':autores})
+        except:
+            pass
 
         
     # Fechar browser
