@@ -33,4 +33,28 @@
         <div id="vis-tooltip" class="vg-tooltip"></div>
       </div>
     </div>
+
+    <div class="container">
+      <h2>Instruções:</h2>
+      <p>
+        Na barra de pesquisa você deve inserir o nome do pesquisador que está procurando.
+        O aplicativo irá então buscar no Google Scholar pelo nome inserido, e irá retornar
+        o primeiro valor encontrado. Caso não seja encontrado o pesquisador ou algum outro erro ocorra,
+        uma mensagem irá aparecer na tela.
+      </p>
+      <p>
+        Quando o nome for encontrado, dois grafos interativos irão aparecer na tela.
+        O grafo da esquerda corresponde a uma rede de coautorias, onde os nós representam autores de papers,
+        e a aresta indica que publicaram algum artigo em conjunto. Enquanto o grafo da direito relaciona artigos
+        com autores em comum.
+      </p>
+      <p>
+        No grafo dá esquerda, é possível clicar nos nós, de forma que no grafo da direita irão filtrar os papers
+        correspondentes aquele autor.  
+      </p>
+      <p>
+        Reiniciando o aplicativo a base de dados será deletada e criada novamente ao rodar o aplicativo.
+      </p>
+
+    </div>
 {% endblock content %}

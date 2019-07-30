@@ -31,6 +31,8 @@ ter o browser instalado juntamente com o _geckodriver_.
 database;
 *   grafos.py           - Funções para geração dos grafos interativos;
 *   scrape_scholar.py   - Função para realizar o scrape do Google Scholar;
+*   forms.py            - Arquivo contendo form criado para receber nome
+pesquisado;
 *   scrape.ipynb        - Jupyter Notebook com exemplo de scraping do
 Google Scholar;
 *   templates/          - Pasta com arquivos de _html_ utilizados no
@@ -42,3 +44,22 @@ Para rodar o aplicativo fazer:
 python app.py
 ```
 Assim, o aplicativo estará rodando no seu _http://localhost:8000/_.
+
+### Instruções de uso
+Na barra de pesquisa você deve inserir o nome do pesquisador que está procurando.
+O aplicativo irá então buscar no Google Scholar pelo nome inserido, e irá retornar
+o primeiro valor encontrado. Caso não seja encontrado o pesquisador ou algum outro erro ocorra,
+uma mensagem irá aparecer na tela.
+
+
+Quando o nome for encontrado, dois grafos interativos irão aparecer na tela.
+O grafo da esquerda corresponde a uma rede de coautorias, onde os nós representam autores de papers,
+e a aresta indica que publicaram algum artigo em conjunto. Enquanto o grafo da direito relaciona artigos
+com autores em comum.
+
+
+No grafo dá esquerda, é possível clicar nos nós, de forma que no grafo da direita irão filtrar os papers
+correspondentes aquele autor.  
+
+
+Reiniciando o aplicativo a base de dados será deletada e criada novamente ao rodar o aplicativo.
