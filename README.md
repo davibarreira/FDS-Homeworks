@@ -51,6 +51,10 @@ O aplicativo irá então buscar no Google Scholar pelo nome inserido, e irá ret
 o primeiro valor encontrado. Caso não seja encontrado o pesquisador ou algum outro erro ocorra,
 uma mensagem irá aparecer na tela.
 
+Note que é também é possível realizar o _scraping_ utilizando o endereço
+"/scrape?author=<Author>", substituindo a variável "<Author>" pelo nome
+que se quer buscar, por exemplo "/scrap?author=Jeffrey+Heer".
+
 
 Quando o nome for encontrado, dois grafos interativos irão aparecer na tela.
 O grafo da esquerda corresponde a uma rede de coautorias, onde os nós representam autores de papers,
