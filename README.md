@@ -58,7 +58,7 @@ e a aresta indica que publicaram algum artigo em conjunto. Enquanto o grafo da d
 com autores em comum.
 
 
-No grafo dá esquerda, é possível clicar nos nós, de forma que no grafo da direita irão filtrar os papers
+No grafo da esquerda, é possível clicar nos nós, de forma que no grafo da direita irão filtrar os papers
 correspondentes aquele autor.  
 
 
