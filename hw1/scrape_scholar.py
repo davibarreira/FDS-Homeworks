@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
-import requests
 
 
 def scrape(author_name):
@@ -24,8 +23,12 @@ def scrape(author_name):
     driver.find_element_by_id('gs_hdr_tsb').click()
 
     # Buscar a url com o endereço para a página do autor pesquisado
-    soup = BeautifulSoup(driver.page_source,  features='lxml')
+    time.sleep(0.2)
+    print('pass1')
+    soup = BeautifulSoup(driver.page_source)
+    time.sleep(0.2)
     try:
+        print('pass2')
         link = soup.find('h4',class_='gs_rt2').contents[0].get('href')
         autor_url = url+link
     except:
@@ -48,7 +51,7 @@ def scrape(author_name):
             driver.find_element_by_id('gsc_bpf_more').click()
             
     # Coletar html da página
-    soup = BeautifulSoup(driver.page_source,features='lxml')
+    soup = BeautifulSoup(driver.page_source)
 
     # Criar lista com papers contendo artigos e autores
     table = soup.find('table',attrs={"id":'gsc_a_t'})
@@ -90,7 +93,7 @@ def scrape_bypass(url_author):
             driver.find_element_by_id('gsc_bpf_more').click()
             
     # Coletar html da página
-    soup = BeautifulSoup(driver.page_source,features='lxml')
+    soup = BeautifulSoup(driver.page_source)
 
     
     # Criar lista com papers contendo artigos e autores

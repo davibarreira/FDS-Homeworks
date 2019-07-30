@@ -2,7 +2,6 @@ from flask import (Flask, render_template, redirect,
     url_for,jsonify, request, flash)
 from forms import AuthorForm
 import altair as alt
-from vega_datasets import data
 from altair import Chart, X, Y, Axis, Data, DataFormat
 import scrape_scholar as ss
 from database_app import Create_DB, Insert_Data

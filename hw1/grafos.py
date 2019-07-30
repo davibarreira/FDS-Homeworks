@@ -1,4 +1,3 @@
-from matplotlib import pyplot as plt
 import sqlite3
 import pandas as pd
 import networkx as nx
