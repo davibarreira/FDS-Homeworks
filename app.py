@@ -17,6 +17,7 @@ Create_DB()
 app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 
 @app.route('/')
+
 def index():
     return render_template('home.html')
 
