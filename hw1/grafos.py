@@ -145,6 +145,10 @@ def Altair_Grafo():
     df = pd.merge(df,pos_authors,left_on='author_id',right_on='id',how='left')
     df = pd.merge(df,pos_papers,left_on='paper_id',right_on='id',suffixes=('_a','_p'),how='left')
 
+    # Dataframe contendo somente os dados dos papers - será utilizado para gerar um background dos nós
+    paper_background = df[['paper_name','paper_id','x_p','y_p']].groupby(['paper_name',
+                                     'paper_id','x_p','y_p']).count().reset_index()
+
     # IMPLEMENTACAO DOS CHARTS COM ALTAIR
     ## Serao criados 5 charts diferentes, 3 para nós e 2 para edges,
     ## que serão então sobrepostos.
@@ -170,7 +174,7 @@ def Altair_Grafo():
         opacity = alt.condition(select,alt.value(1),alt.value(0.0)),
         tooltip = 'paper_name'
     )
-    chart_np_background = alt.Chart(df).mark_circle(size=200).encode(
+    chart_np_background = alt.Chart(paper_background).mark_circle(size=200).encode(
         x = alt.X('x_p', axis=alt.Axis(title='')),
         y = alt.Y('y_p', axis=alt.Axis(title='')),
         fill = alt.value('lightgray'),
@@ -200,6 +204,6 @@ def Altair_Grafo():
         ticks=False,
         grid=True,
         domain=False,
-        labels=False).configure_view(strokeWidth=0)
+        labels=False).configure_view(strokeWidth=1)
 
     return chart
