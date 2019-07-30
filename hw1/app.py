@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = 'iahuq3#%1u982hFA)#($mx'
 @app.route('/')
 
 def index():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/scrape', methods=['POST','GET'])
 def scrape_author():
