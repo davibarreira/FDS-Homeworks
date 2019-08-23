@@ -3,3 +3,6 @@
 
 ## Homework 1
 Pasta hw1 - Contém o primeiro Homework.
+
+## Homework 2
+Pasta hw2 - Contém o segundo Homework.
